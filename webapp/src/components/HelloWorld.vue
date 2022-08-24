@@ -26,30 +26,27 @@ const shake = () => {
     const range: number = 80;
     points.value = points.value.map((p: Point2D) => {
         return {
-            x: Math.random() * range - range  /2  + p.x, y: Math.random() * range - range / 2 + p.y
+            x: Math.random() * range - range / 2 + p.x, y: Math.random() * range - range / 2 + p.y
         };
     })
 }
 </script>
 
-<template>
-    <svg class="main" width="600" height="480" viewBox="-300 -240 600 480"
-         @pointerdown="plot"
-    >
-        <polyline :points="points_line" stroke-width="1" stroke="blue" fill="none"></polyline>
-        <g class="points" v-for="p in points">
-            <circle :cx="p.x" :cy="p.y" r="3" stroke="red" stroke-width="1" fill="none"></circle>
-        </g>
-    </svg>
-    <a href="#" @click="shake" class="button">Shake</a>
+<template lang="pug">
+svg.main(width="600" height="480" viewBox="-300 -240 600 480"
+    @pointerdown="plot"
+)
+    polyline(:points="points_line" stroke-width="1" stroke="blue" fill="none")
+    g.points(v-for="p in points")
+        circle(:cx="p.x" :cy="p.y" r="3" stroke="red" stroke-width="1" fill="none")
+a.button(href="#" @click.prevent="shake") Shake
 
-    <div class="card">
-        <button type="button" @click="count++">count is {{ count }}</button>
-        <p>
-            Edit
-            <code>components/HelloWorld.vue</code> to test HMR
-        </p>
-    </div>
+.card
+    button(type="button" @click="count++") count is {{ count }}
+    p
+        span Edit
+        code components/HelloWorld.vue
+        span to test HMR
 </template>
 
 <style scoped lang="less">
