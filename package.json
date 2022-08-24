@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "buildwasm": "wasm-pack build --out-dir webapp/dist2  --release --target web",
+    "buildwasm": "wasm-pack build --out-dir webapp/dist2/wasm  --release --target web",
     "express": "node app.js"
   },
   "author": "",

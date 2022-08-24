@@ -6,19 +6,19 @@ express.static.mime.define({'application/wasm': ['wasm']})
 
 app.set('view engine', 'pug')
 
-app.use(express.static('./webapp/dist2', {
+app.use(express.static('webapp/dist2', {
     setHeaders: (res) => {
         res.set('Cross-Origin-Opener-Policy', 'same-origin');
         res.set('Cross-Origin-Embedder-Policy', 'require-corp');
     }
 }));
 
-// app.use(express.static('.', {
-//     setHeaders: (res) => {
-//         res.set('Cross-Origin-Opener-Policy', 'same-origin');
-//         res.set('Cross-Origin-Embedder-Policy', 'require-corp');
-//     }
-// }));
+app.use(express.static('public', {
+    setHeaders: (res) => {
+        res.set('Cross-Origin-Opener-Policy', 'same-origin');
+        res.set('Cross-Origin-Embedder-Policy', 'require-corp');
+    }
+}));
 
 app.get('/', (req, res) => {
     res.render('index', {});
