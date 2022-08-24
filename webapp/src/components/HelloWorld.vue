@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {computed, ref, Ref} from 'vue'
+
 type Point2D = {
     x: number,
     y: number
@@ -20,17 +21,27 @@ const plot = (e: PointerEvent) => {
 const points_line = computed(() => {
     return points.value.map(p => `${p.x}, ${p.y}`).join(' ')
 })
+
+const shake = () => {
+    const range: number = 80;
+    points.value = points.value.map((p: Point2D) => {
+        return {
+            x: Math.random() * range - range  /2  + p.x, y: Math.random() * range - range / 2 + p.y
+        };
+    })
+}
 </script>
 
 <template>
     <svg class="main" width="600" height="480" viewBox="-300 -240 600 480"
-        @pointerdown="plot"
+         @pointerdown="plot"
     >
         <polyline :points="points_line" stroke-width="1" stroke="blue" fill="none"></polyline>
         <g class="points" v-for="p in points">
             <circle :cx="p.x" :cy="p.y" r="3" stroke="red" stroke-width="1" fill="none"></circle>
         </g>
     </svg>
+    <a href="#" @click="shake" class="button">Shake</a>
 
     <div class="card">
         <button type="button" @click="count++">count is {{ count }}</button>
@@ -41,8 +52,12 @@ const points_line = computed(() => {
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 svg.main {
     outline: 1px solid grey;
+
+    circle, polyline {
+        transition: 1s;
+    }
 }
 </style>
