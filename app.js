@@ -4,7 +4,8 @@ const port = 3000
 
 express.static.mime.define({'application/wasm': ['wasm']})
 
-app.use(express.static('.', {
+app.use(express.static('./webapp/dist2', {
+// app.use(express.static('.', {
     setHeaders: (res) => {
         res.set('Cross-Origin-Opener-Policy', 'same-origin');
         res.set('Cross-Origin-Embedder-Policy', 'require-corp');
