@@ -24,11 +24,18 @@ const points_line = computed(() => {
 
 const shake = () => {
     const range: number = 80;
-    points.value = points.value.map((p: Point2D) => {
-        return {
-            x: Math.random() * range - range / 2 + p.x, y: Math.random() * range - range / 2 + p.y
-        };
-    })
+    const randomize = () => {
+        points.value = points.value.map((p: Point2D) => {
+            return {
+                x: Math.random() * range - range / 2 + p.x, y: Math.random() * range - range / 2 + p.y
+            };
+        })
+    };
+    randomize();
+    const timer = setInterval(randomize, 110);
+    setTimeout(() => {
+        clearInterval(timer);
+    }, 331)
 }
 </script>
 
