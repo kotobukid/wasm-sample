@@ -1,3 +1,4 @@
+const fs = require('fs');
 const express = require('express')
 const app = express()
 const port = 3000
@@ -13,6 +14,13 @@ app.use(express.static('webapp/dist2', {
     }
 }));
 
+app.use(express.static('webapp/dist2/vite', {
+    setHeaders: (res) => {
+        res.set('Cross-Origin-Opener-Policy', 'same-origin');
+        res.set('Cross-Origin-Embedder-Policy', 'require-corp');
+    }
+}));
+
 app.use(express.static('public', {
     setHeaders: (res) => {
         res.set('Cross-Origin-Opener-Policy', 'same-origin');
@@ -21,7 +29,11 @@ app.use(express.static('public', {
 }));
 
 app.get('/', (req, res) => {
-    res.render('index', {});
+    // res.render('index', {});
+    fs.readFile('./webapp/dist2/vite/index.html', 'utf-8', (err, data) => {
+        if (err) throw err;
+        res.end(data);
+    })
 });
 
 app.listen(port, () => {
